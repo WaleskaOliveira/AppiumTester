@@ -28,27 +28,16 @@ public class FeatureCadastro {
         );
         botaoCadastro.click();
 
-        // Preenche os campos de cadastro
-        MobileElement campoNome = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_nome");
-        MobileElement campoSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_senha");
-        MobileElement campoConfirmarSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_confirmar_senha");
+       CadastroPageObject telaCadastro = new CadastroPageObject(driver);
+       telaCadastro.BuscarElementos();
+       telaCadastro.Cadastrar("Wa","123","456");
 
-        campoNome.sendKeys("Waleska");
-        campoSenha.sendKeys("123456");
-        campoConfirmarSenha.sendKeys("7895");
 
-        // Clica no botão para confirmar cadastro
-        MobileElement botaoConfirmarCadastro = (MobileElement) wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar"))
-        );
-        botaoConfirmarCadastro.click();
 
         // Valida a mensagem de erro
-        MobileElement erro = (MobileElement) wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.id("br.com.alura.aluraesporte:id/erro_cadastro"))
-        );
 
-        assertEquals("Senhas não conferem", erro.getText());
+
+        assertEquals("Senhas não conferem", telaCadastro.MensagemErro());
         driver.navigate().back();
     }
 
@@ -68,8 +57,7 @@ public class FeatureCadastro {
         // Preenche os campos de cadastro
         CadastroPageObject telaCadastro = new CadastroPageObject(driver);
         telaCadastro.BuscarElementos();
-        telaCadastro.PreencherFormulario("Waleska","123", "123");
-        telaCadastro.Cadastrar();
+        telaCadastro.Cadastrar("Waleska","123", "123");
 
 
 
