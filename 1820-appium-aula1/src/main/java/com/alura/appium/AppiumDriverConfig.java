@@ -20,7 +20,7 @@ public class AppiumDriverConfig {
         return AppiumDriverConfig._instance;
     }
 
-    private AppiumDriverConfig() throws {
+    private AppiumDriverConfig() {
 
         File apk = new File("C:\\Users\\Waleska Oliveira\\Downloads\\appium alura\\1820-appium-aula1\\src\\main\\resources\\alura_esporte.apk");
 

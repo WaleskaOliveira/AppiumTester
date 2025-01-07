@@ -2,6 +2,7 @@ package com.alura.appium;
 
 import static org.junit.Assert.assertEquals;
 
+import com.alura.appium.PageObjects.CadastroPageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class FeatureCadastro {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
         // Espera explícita
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
 
         // Clica no botão de cadastro
         MobileElement botaoCadastro = (MobileElement) wait.until(
@@ -48,6 +49,7 @@ public class FeatureCadastro {
         );
 
         assertEquals("Senhas não conferem", erro.getText());
+        driver.navigate().back();
     }
 
     @Test
@@ -64,18 +66,12 @@ public class FeatureCadastro {
         botaoCadastro.click();
 
         // Preenche os campos de cadastro
-        MobileElement campoNome = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_nome");
-        MobileElement campoSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_senha");
-        MobileElement campoConfirmarSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_confirmar_senha");
+        CadastroPageObject telaCadastro = new CadastroPageObject(driver);
+        telaCadastro.BuscarElementos();
+        telaCadastro.PreencherFormulario("Waleska","123", "123");
+        telaCadastro.Cadastrar();
 
-        campoNome.sendKeys("Waleska");
-        campoSenha.sendKeys("123456");
-        campoConfirmarSenha.sendKeys("123456");
 
-        MobileElement botaoConfirmarCadastro = (MobileElement) wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar"))
-        );
-        botaoConfirmarCadastro.click();
 
 
         MobileElement botaoLogar = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/login_botao_logar");
