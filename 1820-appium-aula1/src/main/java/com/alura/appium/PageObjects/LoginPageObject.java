@@ -7,15 +7,16 @@ import org.openqa.selenium.internal.FindsById;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPageObject {
+public class LoginPageObject extends PageObjectBase {
 
     private MobileElement botaoCadastro;
-    private AppiumDriver driver;
 
     public LoginPageObject(AppiumDriver driver) {
-        this.driver = driver;
+        super(driver);
 
     }
+
+    @Override
     public void BuscarElementos() {
         WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.id("br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario")));

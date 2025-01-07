@@ -7,23 +7,36 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CadastroPageObject {
-    private AppiumDriver driver;
+public class CadastroPageObject extends PageObjectBase {
+
     private MobileElement campoNome;
     private MobileElement campoSenha;
     private MobileElement campoConfirmarSenha;
     private MobileElement botaoCadastrar;
     private MobileElement mensagemErro;
 
+    private final By erroID;
+    private final By campoNomeID;
+    private final By campoSenhaID;
+    private final By campoConfirmacaoID;
+    private final By campoCadastrarID;
+
     public CadastroPageObject(AppiumDriver driver) {
-        this.driver = driver;
+        super(driver);
+        erroID = By.id("br.com.alura.aluraesporte:id/erro_cadastro");
+        campoNomeID = By.id("br.com.alura.aluraesporte:id/input_nome");
+        campoSenhaID = By.id("br.com.alura.aluraesporte:id/input_senha");
+        campoConfirmacaoID = By.id("br.com.alura.aluraesporte:id/input_confirmar_senha");
+        campoCadastrarID = By.id("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar");
+
     }
 
+    @Override
     public void BuscarElementos() {
-        campoNome = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_nome");
-        campoSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_senha");
-        campoConfirmarSenha = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/input_confirmar_senha");
-        botaoCadastrar = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar");
+        campoNome = (MobileElement) driver.findElement(campoNomeID);
+        campoSenha = (MobileElement) driver.findElement(campoSenhaID);
+        campoConfirmarSenha = (MobileElement) driver.findElement(campoConfirmacaoID);
+        botaoCadastrar = (MobileElement) driver.findElement(campoCadastrarID);
     }
 
     private void PreencherFormulario(String usuario, String senha, String confirmacao) {
@@ -39,7 +52,7 @@ public class CadastroPageObject {
     }
 
     public String MensagemErro() {
-        By erroID = By.id("br.com.alura.aluraesporte:id/erro_cadastro");
+
         WebDriverWait espera = new WebDriverWait(driver, 15);
         espera.until(ExpectedConditions.presenceOfElementLocated(erroID));
 
