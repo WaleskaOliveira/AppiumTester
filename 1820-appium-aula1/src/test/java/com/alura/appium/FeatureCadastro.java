@@ -3,6 +3,7 @@ package com.alura.appium;
 import static org.junit.Assert.assertEquals;
 
 import com.alura.appium.PageObjects.CadastroPageObject;
+import com.alura.appium.PageObjects.LoginPageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.junit.Test;
@@ -22,20 +23,11 @@ public class FeatureCadastro {
         // Espera explícita
         WebDriverWait wait = new WebDriverWait(driver, 60);
 
-        // Clica no botão de cadastro
-        MobileElement botaoCadastro = (MobileElement) wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario"))
-        );
-        botaoCadastro.click();
-
-       CadastroPageObject telaCadastro = new CadastroPageObject(driver);
-       telaCadastro.BuscarElementos();
-       telaCadastro.Cadastrar("Wa","123","456");
-
-
-
-        // Valida a mensagem de erro
-
+        LoginPageObject telaLogin = new LoginPageObject(driver);
+        telaLogin.BuscarElementos();
+        CadastroPageObject telaCadastro = telaLogin.IrParaTelaDeCadastro();
+        telaCadastro.BuscarElementos();
+        telaCadastro.Cadastrar("Wa","123","456");
 
         assertEquals("Senhas não conferem", telaCadastro.MensagemErro());
         driver.navigate().back();
@@ -45,26 +37,13 @@ public class FeatureCadastro {
     public void posso_cadastrar_usuario_com_senhas_que_conferem() throws NoSuchElementException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
-        // Espera explícita
-        WebDriverWait wait = new WebDriverWait(driver,30);
+        LoginPageObject telaLogin = new LoginPageObject(driver);
+        telaLogin.BuscarElementos();
+        CadastroPageObject telaCadastro = telaLogin.IrParaTelaDeCadastro();
 
-        // Clica no botão de cadastro
-        MobileElement botaoCadastro = (MobileElement) wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario"))
-        );
-        botaoCadastro.click();
-
-        // Preenche os campos de cadastro
-        CadastroPageObject telaCadastro = new CadastroPageObject(driver);
         telaCadastro.BuscarElementos();
-        telaCadastro.Cadastrar("Waleska","123", "123");
-
-
-
-
-        MobileElement botaoLogar = (MobileElement) driver.findElementById("br.com.alura.aluraesporte:id/login_botao_logar");
-
-
+        telaLogin = telaCadastro.Cadastrar("Waleska","123", "123");
+        telaLogin.BuscarElementos();
     }
 }
 
