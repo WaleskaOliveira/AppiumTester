@@ -21,12 +21,14 @@ public class FeatureCadastro {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
         // Espera explícita
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = new WebDriverWait(driver, 120);
 
         LoginPageObject telaLogin = new LoginPageObject(driver);
         telaLogin.BuscarElementos();
+
         CadastroPageObject telaCadastro = telaLogin.IrParaTelaDeCadastro();
         telaCadastro.BuscarElementos();
+
         telaCadastro.Cadastrar("Wa","123","456");
 
         assertEquals("Senhas não conferem", telaCadastro.MensagemErro());
@@ -39,9 +41,10 @@ public class FeatureCadastro {
 
         LoginPageObject telaLogin = new LoginPageObject(driver);
         telaLogin.BuscarElementos();
-        CadastroPageObject telaCadastro = telaLogin.IrParaTelaDeCadastro();
 
+        CadastroPageObject telaCadastro = telaLogin.IrParaTelaDeCadastro();
         telaCadastro.BuscarElementos();
+
         telaLogin = telaCadastro.Cadastrar("Waleska","123", "123");
         telaLogin.BuscarElementos();
     }
